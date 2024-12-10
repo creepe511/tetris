@@ -3,8 +3,28 @@
   "WorkspaceRootPath": "D:\\GitHub\\tetris\\UI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\tetris\\ui\\ui\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\tetris\\ui\\ui\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\form3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\tetris\\ui\\ui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\tetris\\ui\\ui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\tetris\\ui\\ui\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\form2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\tetris\\ui\\ui\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\form4.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,7 +46,33 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "D:\\GitHub\\tetris\\UI\\UI\\Form1.cs",
+              "RelativeDocumentMoniker": "UI\\Form1.cs",
+              "ToolTip": "D:\\GitHub\\tetris\\UI\\UI\\Form1.cs",
+              "RelativeToolTip": "UI\\Form1.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAWwCEAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:55:05.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Form3.cs",
+              "DocumentMoniker": "D:\\GitHub\\tetris\\UI\\UI\\Form3.cs",
+              "RelativeDocumentMoniker": "UI\\Form3.cs",
+              "ToolTip": "D:\\GitHub\\tetris\\UI\\UI\\Form3.cs",
+              "RelativeToolTip": "UI\\Form3.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAhwCkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:52:41.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Form1.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\GitHub\\tetris\\UI\\UI\\Form1.cs",
               "RelativeDocumentMoniker": "UI\\Form1.cs",
@@ -34,6 +80,42 @@
               "RelativeToolTip": "UI\\Form1.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-09T13:08:12.006Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Form2.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "D:\\GitHub\\tetris\\UI\\UI\\Form2.cs",
+              "RelativeDocumentMoniker": "UI\\Form2.cs",
+              "ToolTip": "D:\\GitHub\\tetris\\UI\\UI\\Form2.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "UI\\Form2.cs [\u8BBE\u8BA1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:40:12.885Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Form3.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "D:\\GitHub\\tetris\\UI\\UI\\Form3.cs",
+              "RelativeDocumentMoniker": "UI\\Form3.cs",
+              "ToolTip": "D:\\GitHub\\tetris\\UI\\UI\\Form3.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "UI\\Form3.cs [\u8BBE\u8BA1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:40:22.427Z",
+              "EditorCaption": " [\u8BBE\u8BA1]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Form4.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "D:\\GitHub\\tetris\\UI\\UI\\Form4.cs",
+              "RelativeDocumentMoniker": "UI\\Form4.cs",
+              "ToolTip": "D:\\GitHub\\tetris\\UI\\UI\\Form4.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "UI\\Form4.cs [\u8BBE\u8BA1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-10T09:40:29.897Z",
               "EditorCaption": " [\u8BBE\u8BA1]"
             }
           ]
