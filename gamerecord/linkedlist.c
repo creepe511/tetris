@@ -16,7 +16,7 @@ typedef struct Node {
 Node* create_record(const char* start_time, int score, const char* duration, const char* note) {
     Node* new_record = (Node*)malloc(sizeof(Node));
     if (!new_record) {
-        perror("Failed to allocate memory for new record");
+        //perror("Failed to allocate memory for new record");
         return NULL;
     }
 
@@ -64,11 +64,11 @@ int delete_record(Node** head, const char* start_time) {
     return 0; // 未找到匹配的记录
 }
 
-// 查找指定开始时间的记录
-Node* find_record(Node* head, const char* start_time) {
+// 根据备注查找记录
+Node* find_record(Node* head, const char* note) {
     Node* current = head;
     while (current) {
-        if (strcmp(current->start_time, start_time) == 0) {
+        if (strcmp(current->note, note) == 0) {
             return current;
         }
         current = current->next;
@@ -77,7 +77,7 @@ Node* find_record(Node* head, const char* start_time) {
 }
 
 // 修改备注内容
-void modify_note(Node* record, const char* new_note) {
+void edit_note(Node* record, const char* new_note) {
     if (!record || !new_note) return;
 
     // 清除旧的note内容，然后复制新的内容

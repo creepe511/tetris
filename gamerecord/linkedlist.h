@@ -27,7 +27,7 @@ int delete_record(Node** head, const char* start_time);
 Node* find_record(Node* head, const char* start_time);
 
 // 修改备注内容
-void modify_note(Node* record, const char* new_note);
+void edit_note(Node* record, const char* new_note);
 
 // 释放链表中所有的记录
 void free_all_records(Node** head);
