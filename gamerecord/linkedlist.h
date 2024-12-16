@@ -1,27 +1,35 @@
-/* linkedlist.h - 头文件 */
+// linkedlist.h - 头文件
 
-#ifndef GAME_RECORD_H
-#define GAME_RECORD_H
+#ifndef LINKEDLIST_H
+#define LINKEDLIST_H
 
-#include <time.h> // 用于存储时间戳
+#include <stdio.h>
 
-#define NOTE_MAX_LENGTH 100 // 备注的最大长度
-
-// 游戏记录的节点结构
+// 定义游戏记录节点结构体
 typedef struct Node {
-    time_t start_time;              // 游戏开始时间
-    int score;                      // 游戏分数
-    int duration;                   // 游戏时长（秒）
-    char note[NOTE_MAX_LENGTH];     // 游戏备注
-    struct Node* next;              // 指向下一个节点的指针
+    char start_time[30];              // 游戏开始时间
+    int score;                       // 游戏分数
+    char duration[15];               // 游戏时长（秒）
+    char note[15];                   // 游戏备注
+    struct Node* next;               // 指向下一个节点的指针
 } Node;
 
-// 链表操作函数声明
-Node* create_record(time_t start_time, int score, int duration, const char* note);
+// 创建一个新的游戏记录节点
+Node* create_record(const char* start_time, int score, const char* duration, const char* note);
+
+// 添加一个新记录到链表中
 void add_record(Node** head, Node* new_record);
-int delete_record(Node** head, time_t start_time);
-Node* find_record(Node* head, time_t start_time);
-void update_record(Node* record, int score, int duration, const char* note);
+
+// 删除指定开始时间的记录
+int delete_record(Node** head, const char* start_time);
+
+// 查找指定开始时间的记录
+Node* find_record(Node* head, const char* start_time);
+
+// 修改备注内容
+void modify_note(Node* record, const char* new_note);
+
+// 释放链表中所有的记录
 void free_all_records(Node** head);
 
-#endif // GAME_RECORD_H
+#endif // LINKEDLIST_H
