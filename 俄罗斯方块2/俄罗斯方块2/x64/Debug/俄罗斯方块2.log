@@ -1,7 +1,0 @@
-﻿  main.cpp
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(92,40): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(92,32): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(102,62): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(102,42): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(220,12): warning C4305: “=”: 从“double”到“float”截断
-  俄罗斯方块2.vcxproj -> D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\x64\Debug\俄罗斯方块2.exe
