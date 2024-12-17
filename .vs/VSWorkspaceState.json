@@ -1,6 +1,11 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\gamerecord",
+    "\\UI",
+    "\\UI\\UI",
+    "\\\u4FC4\u7F57\u65AF\u65B9\u57572"
   ],
+  "SelectedNode": "\\gamerecord\\linkedlist.c",
   "PreviewInSolutionExplorer": false
 }
