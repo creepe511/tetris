@@ -1,13 +1,13 @@
 ﻿  main.cpp
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(106,40): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(106,32): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(116,62): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(116,42): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(127,76): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(127,49): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(131,76): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(131,49): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(135,76): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(135,49): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
-D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\俄罗斯方块2\main.cpp(301,12): warning C4305: “=”: 从“double”到“float”截断
-  俄罗斯方块2.vcxproj -> D:\VisualStudio\project\俄罗斯方块(2)\俄罗斯方块2\x64\Debug\俄罗斯方块2.exe
+D:\GitHub\game\俄罗斯方块2\main.cpp(106,40): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(106,32): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(116,62): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(116,42): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(127,76): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(127,49): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(131,76): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(131,49): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(135,76): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(135,49): warning C4244: “参数”: 从“int”转换到“float”，可能丢失数据
+D:\GitHub\game\俄罗斯方块2\main.cpp(301,12): warning C4305: “=”: 从“double”到“float”截断
+  俄罗斯方块2.vcxproj -> D:\GitHub\game\x64\Debug\俄罗斯方块2.exe

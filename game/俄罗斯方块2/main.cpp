@@ -381,14 +381,14 @@ int main(void)
 
 	//2.添加游戏背景
 	Texture t1; //把背景图片文件加载到内存
-	if (!t1.loadFromFile("image/bg.jpg"))
+	if (!t1.loadFromFile("D:/GitHub/game/俄罗斯方块2/image/bg.jpg"))
 	{
 		return -1;
 	}
 	Sprite spriteBg(t1); //根据图片来创造精灵
 	
 	Texture t2; //把方块图片文件加载到内存
-	if (!t2.loadFromFile("image/block.jpg"))
+	if (!t2.loadFromFile("D:/GitHub/game/俄罗斯方块2/image/block.jpg"))
 	{
 		return -1;
 	}
