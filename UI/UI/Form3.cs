@@ -27,6 +27,8 @@ namespace UI
             label7.BackColor = Color.Transparent;
             label8.BackColor = Color.Transparent;
             label9.BackColor = Color.Transparent;
+            label10.BackColor = Color.Transparent;
+            label11.BackColor = Color.Transparent;
         }
 
         private void Form3_Load(object sender, EventArgs e)
@@ -63,6 +65,11 @@ namespace UI
         }
 
         private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
         {
 
         }

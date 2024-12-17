@@ -21,7 +21,7 @@ namespace UI
             this.MaximizeBox = false;
             this.MinimizeBox = false;
         }
-        private void LoadBooks()
+        private void LoadHistory()
         {
             History history = new History();
             history.connect();
@@ -29,7 +29,7 @@ namespace UI
             SqlDataReader reader = history.read(sql);
             while (reader.Read())
             {
-                dgv.Rows.Add(reader[0].ToString(), reader[1].ToString(), reader[2].ToString(), reader[3].ToString());
+                dgv.Rows.Add(reader[0].ToString(), reader[1].ToString(), reader[2].ToString());
             }
             reader.Close();
             history.HistoryClose();
@@ -49,7 +49,7 @@ namespace UI
         {
             dgv.AllowUserToAddRows = false;
             dgv.Rows.Clear();
-            LoadBooks();
+            LoadHistory();
         }
 
         private void button2_Click(object sender, EventArgs e)
