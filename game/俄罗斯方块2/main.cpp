@@ -4,6 +4,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<iostream>
+#include<chrono>
+#include<ctime>
+#include<iomanip>
 
 #define ROW 24
 #define COL 10
@@ -94,7 +98,7 @@ int table[ROW][COL] = { 0 };
 void drawBlocks(Sprite *spriteBlock, RenderWindow *window)
 {
 	//1.已降落到底部的方块
-	for (int i = 4;i < ROW;i++)
+	for (int i = 0;i < ROW;i++)
 	{
 		for (int j = 0;j < COL;j++)
 		{
@@ -312,7 +316,7 @@ int score = 0;
 //消除加分处理
 bool isclearLine() //判断是否消除
 {
-	for (int i = ROW - 1;i >= 4;i--)
+	for (int i = ROW - 1;i >= 0;i--)
 	{
 		int count = 0;
 		for (int j = 0;j < COL;j++)
@@ -333,7 +337,7 @@ bool isclearLine() //判断是否消除
 void clearLine()
 {
 	int k = ROW - 1;
-	for (int i = ROW - 1;i >= 4;i--)
+	for (int i = ROW - 1;i >= 0;i--)
 	{
 		int count = 0;
 		for (int j = 0;j < COL;j++)
@@ -361,7 +365,7 @@ bool isGameOver()
 {
 	for (int j = 0;j < COL;j++)
 	{
-		if (table[4][j] != 0)
+		if (table[3][j] != 0)
 		{
 			return true;
 		}
@@ -371,6 +375,27 @@ bool isGameOver()
 
 int main(void)
 {
+	//记录游戏开始时刻
+	// 获取当前时间（系统时间，假设为UTC时间）
+	auto now = std::chrono::system_clock::now();
+
+	// 转换为时间点（UTC时间）
+	std::time_t now_time_t = std::chrono::system_clock::to_time_t(now);
+
+	// 将系统时间转换为结构体形式
+	std::tm now_tm;
+	gmtime_s(&now_tm, &now_time_t); // 使用 gmtime_s 得到 UTC 时间
+
+	// 将时间结构转换为北京时间（UTC + 8 小时）
+	now_tm.tm_hour += 8; // 增加8小时
+
+	// 调用 mktime 使结构体自动调整
+	std::mktime(&now_tm); // 处理溢出问题（例如，日期自动调整）
+
+	// 输出北京时间
+	std::cout << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S") << std::endl;
+
+
 	srand((unsigned)time(NULL));//生成随机种子
 
 	//游戏界面绘制
@@ -381,14 +406,14 @@ int main(void)
 
 	//2.添加游戏背景
 	Texture t1; //把背景图片文件加载到内存
-	if (!t1.loadFromFile("D:/GitHub/game/俄罗斯方块2/image/bg.jpg"))
+	if (!t1.loadFromFile("image/bg.jpg"))
 	{
 		return -1;
 	}
 	Sprite spriteBg(t1); //根据图片来创造精灵
 	
 	Texture t2; //把方块图片文件加载到内存
-	if (!t2.loadFromFile("D:/GitHub/game/俄罗斯方块2/image/block.jpg"))
+	if (!t2.loadFromFile("image/block.jpg"))
 	{
 		return -1;
 	}
@@ -402,12 +427,12 @@ int main(void)
 	}
 	Text scoreText;
 	scoreText.setFont(font1);
-	scoreText.setCharacterSize(35);
+	scoreText.setCharacterSize(30);
 	scoreText.setFillColor(Color::White);
 	scoreText.setPosition(400,335); //文本位置
 	scoreText.setRotation(-5.f); //文本角度
 
-	//时间显示
+	//4.时间显示
 	Text timeText;
 	timeText.setFont(font1);
 	timeText.setCharacterSize(25);
@@ -455,8 +480,11 @@ int main(void)
 		//获取从clock被启动（重启）到现在的时间间隔，并转换为秒数
 		float time = clock.getElapsedTime().asSeconds();
 		clock.restart(); //重启计时器
-		timer1 += time;
-		timer2 += time;
+		if (!paused)
+		{
+			timer1 += time; // 只有在游戏没有暂停时，才让时间流逝
+			timer2 += time;
+		}
 
 		//自然下落
 		if (timer1 > delay&&!paused)
@@ -510,6 +538,10 @@ int main(void)
 			// 游戏结束界面渲染
 			while (sound3.getStatus() == Sound::Playing) // 音效播放时保持循环
 			{
+				window.clear();
+				window.draw(spriteBg);
+				drawBlocks(&spriteBlock, &window);
+				window.draw(timeText);
 				window.draw(gameOverText);
 				window.draw(scoreText2);
 				window.display();
@@ -528,11 +560,8 @@ int main(void)
 		drawBlocks(&spriteBlock,&window);
 
 		//绘制分数文本及时间文本
-		if (!isGameOver())
-		{
-			window.draw(scoreText);
-			window.draw(timeText);
-		}
+		window.draw(scoreText);
+		window.draw(timeText);
 
 		//绘制游戏暂停提示
 		if (paused&&!isGameOver())
