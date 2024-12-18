@@ -23,7 +23,7 @@ namespace UI
         // 处理窗口加载
         private void Form4_Load(object sender, EventArgs e)
         {
-            // 初始化
+           
         }
 
         // 处理窗口关闭
@@ -61,7 +61,7 @@ namespace UI
             }
 
             // 返回 Form1
-            Form1 form1 = new Form1();  // 假设 Form1 是你的第一个窗体
+            Form1 form1 = new Form1();  
             form1.Show();
             this.Hide();  // 隐藏当前窗体
         }
