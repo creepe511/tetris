@@ -24,3 +24,16 @@ D:\GitHub\UI\UI\obj\Debug\UI.csproj.GenerateResource.cache
 D:\GitHub\UI\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
 D:\GitHub\UI\UI\obj\Debug\UI.exe
 D:\GitHub\UI\UI\obj\Debug\UI.pdb
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\bin\Debug\UI.exe.config
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\bin\Debug\UI.exe
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\bin\Debug\UI.pdb
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.csproj.AssemblyReference.cache
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.Form1.resources
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.Form2.resources
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.Form3.resources
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.Form4.resources
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.Properties.Resources.resources
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.csproj.GenerateResource.cache
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.csproj.CoreCompileInputs.cache
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.exe
+C:\Users\w_ang\Documents\GitHub\tetris\UI\UI\obj\Debug\UI.pdb
