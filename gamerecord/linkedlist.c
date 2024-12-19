@@ -4,47 +4,39 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Node {
-    char start_time[30];              // 游戏开始时间
-    int score;                      // 游戏分数
-    char duration[15];                   // 游戏时长（秒）
-    char note[15];     // 游戏备注
-    struct Node* next;              // 指向下一个节点的指针
-} Node;
 
 // 创建一个新的游戏记录节点
-Node* create_record(const char* start_time, int score, const char* duration, const char* note) {
-    Node* new_record = (Node*)malloc(sizeof(Node));
-    if (!new_record) {
-        //perror("Failed to allocate memory for new record");
+__declspec(dllexport) Node* create_node(const char* start_time, int score, int duration, const char* note) {
+    Node* new_node = (Node*)malloc(sizeof(Node));
+    if (!new_node) {
+        //perror("Failed to allocate memory for new node");
         return NULL;
     }
 
     // 使用strncpy复制字符串，确保不会超出数组边界
-    strncpy(new_record->start_time, start_time, sizeof(new_record->start_time) - 1);
-    new_record->start_time[sizeof(new_record->start_time) - 1] = '\0'; // 确保字符串以null结尾
+    strncpy(new_node->start_time, start_time, sizeof(new_node->start_time) - 1);
+    new_node->start_time[sizeof(new_node->start_time) - 1] = '\0';
 
-    new_record->score = score;
+    new_node->score = score;
 
-    strncpy(new_record->duration, duration, sizeof(new_record->duration) - 1);
-    new_record->duration[sizeof(new_record->duration) - 1] = '\0';
+    new_node->duration = duration;
 
-    strncpy(new_record->note, note, sizeof(new_record->note) - 1);
-    new_record->note[sizeof(new_record->note) - 1] = '\0';
+    strncpy(new_node->note, note, sizeof(new_node->note) - 1);
+    new_node->note[sizeof(new_node->note) - 1] = '\0';
 
-    new_record->next = NULL;
-    return new_record;
+    new_node->next = NULL;
+    return new_node;
 }
 
 // 添加一个新记录到链表中
-void add_record(Node** head, Node* new_record) {
-    if (!new_record) return;
-    new_record->next = *head;
-    *head = new_record;
+__declspec(dllexport) void add_node(Node** head, Node* new_node) {
+    if (!new_node) return;
+    new_node->next = *head;
+    *head = new_node;
 }
 
 // 删除指定开始时间的记录
-int delete_record(Node** head, const char* start_time) {
+__declspec(dllexport) int delete_node(Node** head, const char* start_time) {
     Node* current = *head;
     Node* prev = NULL;
 
@@ -64,29 +56,30 @@ int delete_record(Node** head, const char* start_time) {
     return 0; // 未找到匹配的记录
 }
 
-// 根据备注查找记录
-Node* find_record(Node* head, const char* note) {
+//按游戏时间查找节点
+Node* find_node(Node* head, const char* start_time) {
     Node* current = head;
-    while (current) {
-        if (strcmp(current->note, note) == 0) {
+    while (current != NULL) {
+        if (strcmp(current->start_time, start_time) == 0) {
             return current;
         }
         current = current->next;
     }
-    return NULL; // 未找到匹配的记录
+    return NULL; // 没有找到匹配的节点
 }
 
 // 修改备注内容
-void edit_note(Node* record, const char* new_note) {
-    if (!record || !new_note) return;
-
-    // 清除旧的note内容，然后复制新的内容
-    strncpy(record->note, new_note, sizeof(record->note) - 1);
-    record->note[sizeof(record->note) - 1] = '\0'; 
+__declspec(dllexport) void edit_note(Node* head, const char* start_time, const char* new_note) {
+    Node* node = find_node(head, start_time);
+    if (node && new_note) {
+        // 清除旧的note内容，然后复制新的内容
+        strncpy(node->note, new_note, sizeof(node->note) - 1);
+        node->note[sizeof(node->note) - 1] = '\0'; // 确保字符串以null结尾
+    }
 }
 
 // 释放链表中所有的记录
-void free_all_records(Node** head) {
+__declspec(dllexport) void free_all_nodes(Node** head) {
     Node* current = *head;
     while (current) {
         Node* temp = current;

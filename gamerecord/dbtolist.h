@@ -4,26 +4,22 @@
 #define DBTOLIST_H
 
 #include "linkedlist.h"
+#include "sqlite3.h"
 
-//创建并将新记录加入到数据库中
-void add_to_db();
+//打开数据库
+sqlite3* open_database();
 
-//删除节点以删除数据库中的记录
-void del_in_db();
+//关闭数据库使用 sqlite3_close(sqlite* db)
 
+// 从SQLite数据库中读取数据并创建链表(返回head)
+Node* read_from_database(sqlite3* db);
 
-//修改节点内的“备注”以修改数据库内的“备注”
-void edit_in_db();
+//将链表数据同步到数据库
+void update_database(sqlite3* db, Node* head);
 
-//使数据库内的游戏记录按“游戏时间”排序
-void sort_in_start_time();
-
-//使数据库内的游戏记录按“分数”排序
-void sort_in_score();
-
-//使数据库内的游戏记录按“游戏时长”排序
-void sort_in_duration();
-
+//按顺序查询数据库
+void execute_sort_query(const char *sort_by);
+//当输入的参数为“游戏时间”则按“游戏时间”排序，输入“分数”“游戏时长”同理
 
 
 
