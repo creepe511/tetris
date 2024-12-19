@@ -29,11 +29,9 @@ namespace UI
 
         private void Form5_Load(object sender, EventArgs e)
         {
-            // 只连接数据库，不创建表
             InitializeDatabase();
         }
 
-        // 只连接数据库，不创建表格
         private void InitializeDatabase()
         {
             string connectionString = $"Data Source={GetDatabasePath()};Version=3;";
@@ -43,8 +41,6 @@ namespace UI
                 try
                 {
                     connection.Open();
-                    // 如果数据库连接成功，表格应该已经存在。
-                    // 不做任何创建表的操作，仅确保数据库连接正常。
                 }
                 catch (Exception ex)
                 {
@@ -53,7 +49,6 @@ namespace UI
             }
         }
 
-        // 获取数据库文件的路径（存储在当前应用程序目录下的 "users" 文件夹内）
         private string GetDatabasePath()
         {
             // 获取当前应用程序的目录
