@@ -11,9 +11,12 @@ sqlite3* open_database();
 
 //关闭数据库使用 sqlite3_close(sqlite* db)
 
+<<<<<<< HEAD
 // 将链表节点的数据插入到 SQLite 数据库中
 void insertNodeToDatabase(Node* node, sqlite3* db, const char* table_name);
 
+=======
+>>>>>>> ef1b3f318a009b474c6ded5347cf945feaa5f110
 // 从SQLite数据库中读取数据并创建链表(返回head)
 Node* read_from_database(sqlite3* db, const char* table_name);
 
