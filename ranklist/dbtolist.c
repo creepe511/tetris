@@ -79,7 +79,6 @@ Node* read_from_database(sqlite3* db, const char* table_name) {
         return head;
 }    
 
-<<<<<<< HEAD
 // 将链表节点的数据插入到 SQLite 数据库中
 void insertNodeToDatabase(Node* node, sqlite3* db,const char* table_name) {
     char *errMsg = 0;
@@ -113,25 +112,12 @@ void update_database(sqlite3* db, Node* head, const char* table_name) {
     // 检查 SQL 语句的准备情况
     if (sqlite3_prepare_v2(db, sql_update, -1, &stmt_update, NULL) != SQLITE_OK) {
         fprintf(stderr, "Failed to prepare update statement: %s\n", sqlite3_errmsg(db));
-=======
-
-//将链表数据同步到数据库
-void update_database(sqlite3* db, Node* head, const char* table_name) {
-    char sql[512];
-    snprintf(sql, sizeof(sql), "UPDATE `%s` SET 分数=?, 游戏时长=?, 备注=? WHERE 游戏时间=?;",table_name);
-    sqlite3_stmt* stmt;
- 
-    // 检查 SQL 语句的准备情况
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-        fprintf(stderr, "Failed to prepare statement: %s\n", sqlite3_errmsg(db));
->>>>>>> ef1b3f318a009b474c6ded5347cf945feaa5f110
         return;
     }
  
     // 遍历链表并更新数据库
     Node* current = head;
     while (current != NULL) {
-<<<<<<< HEAD
         sqlite3_reset(stmt_update); // 重置语句到其初始状态
         sqlite3_bind_text(stmt_update, 1, current->note ? current->note : "", -1, SQLITE_STATIC);
         sqlite3_bind_int(stmt_update, 2, current->score);
@@ -140,24 +126,11 @@ void update_database(sqlite3* db, Node* head, const char* table_name) {
  
         // 执行 SQL 语句
         if (sqlite3_step(stmt_update) != SQLITE_DONE) {
-=======
-        // 绑定参数到 SQL 语句
-        sqlite3_reset(stmt); // 重置语句到其初始状态，以便可以重新绑定参数
-         //绑定顺序不重要，只要索引正确即可
-        sqlite3_bind_text(stmt, 1, current->note ? current->note : NULL, -1, SQLITE_STATIC);
-        sqlite3_bind_int(stmt, 2, current->score);
-        sqlite3_bind_int(stmt, 3, current->duration);
-        sqlite3_bind_text(stmt, 4, current->start_time ? current->start_time : NULL, -1, SQLITE_STATIC);
- 
-        // 执行 SQL 语句
-        if (sqlite3_step(stmt) != SQLITE_DONE) {
->>>>>>> ef1b3f318a009b474c6ded5347cf945feaa5f110
             fprintf(stderr, "Failed to update record: %s\n", sqlite3_errmsg(db));
         }
         current = current->next;
     }
  
-<<<<<<< HEAD
     // 释放更新语句对象
     sqlite3_finalize(stmt_update);
  
@@ -175,12 +148,6 @@ void update_database(sqlite3* db, Node* head, const char* table_name) {
     }
 }
     
-=======
-    // 释放 SQL 语句对象
-    sqlite3_finalize(stmt);
-}
-
->>>>>>> ef1b3f318a009b474c6ded5347cf945feaa5f110
 //按顺序查询数据库
 void execute_sort_query(sqlite3* db, const char *sort_by, const char* table_name) {
     char *err_msg = 0;
