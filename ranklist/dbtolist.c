@@ -21,12 +21,12 @@ sqlite3* open_database(){
 
 
 // 从SQLite数据库中读取数据并创建链表
-Node* read_from_database(sqlite3* db, const char* table_name) {
+Node* read_from_database(sqlite3* db) {
     char* errmsg = 0;
     char sql[512];
     sqlite3_stmt* stmt;
 
-    snprintf(sql, sizeof(sql), "SELECT 游戏时间, 分数, 游戏时长, 备注 FROM `%s`;", table_name);
+    snprintf(sql, sizeof(sql), "SELECT 游戏时间, 分数, 游戏时长, 备注 FROM `ranklist`;");
     int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, 0);
     if (rc != SQLITE_OK){
         fprintf(stderr, "Failed to prepare statement: %s\n", sqlite3_errmsg(db));
@@ -80,13 +80,13 @@ Node* read_from_database(sqlite3* db, const char* table_name) {
 }    
 
 // 将链表节点的数据插入到 SQLite 数据库中
-void insertNodeToDatabase(Node* node, sqlite3* db,const char* table_name) {
+void insertNodeToDatabase(Node* node, sqlite3* db) {
     char *errMsg = 0;
     char sql[512];
  
     // 准备 SQL 语句
     snprintf(sql, sizeof(sql),
-             "INSERT INTO %s (游戏时间, 分数, 游戏时长, 备注) VALUES ('%s', %d, %d, '%s');",table_name,
+             "INSERT INTO ranklist (游戏时间, 分数, 游戏时长, 备注) VALUES ('%s', %d, %d, '%s');",
              node->start_time, node->score, node->duration, node->note);
  
     // 执行 SQL 语句
@@ -99,14 +99,35 @@ void insertNodeToDatabase(Node* node, sqlite3* db,const char* table_name) {
     }
 }
 
-//删除节点并同步删除记录
-void del_in_database()
+//删除节点并同步删除数据库中的记录
+void del_in_database(sqlite3* db,Node** head, const char* start_time){
+    delete_node(head, start_time);
+    // 然后从数据库中删除记录
+    char sql[512]; 
+    snprintf(sql, sizeof(sql), "DELETE FROM ranklist WHERE 游戏时间='%s';", start_time);
+ 
+    sqlite3_stmt *stmt;
+    int rc = sqlite3_prepare_v2(db, sql, -1, &stmt, NULL);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "Failed to prepare delete statement: %s\n", sqlite3_errmsg(db));
+        return; 
+    }
+ 
+    // 执行SQL语句
+    rc = sqlite3_step(stmt);
+    if (rc != SQLITE_DONE) {
+        fprintf(stderr, "Failed to delete record from database: %s\n", sqlite3_errmsg(db));
+    }
+ 
+    // 释放DELETE语句对象
+    sqlite3_finalize(stmt);
+}
 
 //将链表数据同步到数据库（用于删除和修改备注的操作之后）
-void update_database(sqlite3* db, Node* head, const char* table_name) {
+void update_database(sqlite3* db, Node* head) {
     char sql_update[512];
     snprintf(sql_update, sizeof(sql_update),
-             "UPDATE `%s` SET 分数=?, 游戏时长=?, 备注=? WHERE 游戏时间=?;", table_name);
+             "UPDATE `ranklist` SET 分数=?, 游戏时长=?, 备注=? WHERE 游戏时间=?;");
     sqlite3_stmt* stmt_update;
  
     // 检查 SQL 语句的准备情况
@@ -136,7 +157,7 @@ void update_database(sqlite3* db, Node* head, const char* table_name) {
  
     // 准备 DELETE 语句以删除游戏时间为 NULL 的行
     char sql_delete[256];
-    snprintf(sql_delete, sizeof(sql_delete), "DELETE FROM `%s` WHERE 游戏时间 IS NULL;", table_name);
+    snprintf(sql_delete, sizeof(sql_delete), "DELETE FROM `ranklist` WHERE 游戏时间 IS NULL;");
  
     // 执行 DELETE 语句
     char *err_msg = 0;
@@ -149,12 +170,12 @@ void update_database(sqlite3* db, Node* head, const char* table_name) {
 }
     
 //按顺序查询数据库
-void execute_sort_query(sqlite3* db, const char *sort_by, const char* table_name) {
+void execute_sort_query(sqlite3* db, const char *sort_by) {
     char *err_msg = 0;
     char sql[256];
 
     // 构建SQL查询语句
-    snprintf(sql, sizeof(sql), "SELECT * FROM `%s` ORDER BY `%s`;", table_name, sort_by);
+    snprintf(sql, sizeof(sql), "SELECT * FROM `ranklist` ORDER BY `%s`;", sort_by);
 
     // 执行查询
     sqlite3_exec(db, sql, 0, 0, &err_msg);
