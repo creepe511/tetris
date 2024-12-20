@@ -1,7 +1,13 @@
-// dbtolist - 头文件
+
 
 #ifndef DBTOLIST_H
 #define DBTOLIST_H
+
+#ifdef BUILD_DLL
+#define DLL_EXPORT __declspec(dllexport)
+#else
+#define DLL_EXPORT __declspec(dllimport)
+#endif
 
 #include <stdio.h>
 #include "sqlite3.h"
