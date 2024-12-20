@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.SQLite;
-using System.Drawing;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace UI
@@ -24,7 +16,6 @@ namespace UI
             this.MinimizeBox = false;
         }
 
-
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
@@ -32,61 +23,66 @@ namespace UI
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
+            // 可以实现点击事件的其他逻辑，如果需要
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             dgv.AllowUserToAddRows = false;
             dgv.Rows.Clear();
-            LoadUserGameRecords();
+            CreateDatabase(); // 创建数据库并加载数据
         }
 
-        // 加载当前用户的游戏记录到 DataGridView
-        private void LoadUserGameRecords()
+        // 创建数据库和游戏记录表
+        private void CreateDatabase()
         {
-            string username = LoginPage.CurrentUser;  // 获取当前登录用户
-            if (string.IsNullOrEmpty(username))
+            // 获取数据库路径，确保它位于当前目录下的 users 文件夹内
+            string databasePath = Path.Combine(Directory.GetCurrentDirectory(), "users", "game_records.db");
+
+            // 检查文件夹是否存在，如果不存在则创建
+            string directoryPath = Path.GetDirectoryName(databasePath);
+            if (!Directory.Exists(directoryPath))
             {
-                MessageBox.Show("用户未登录！");
-                return;
+                Directory.CreateDirectory(directoryPath);
             }
 
-            string connectionString = $"Data Source={GetDatabasePath()};Version=3;";
+            // 如果数据库文件不存在，则创建数据库和表
+            if (!File.Exists(databasePath))
+            {
+                CreateGameRecordsTable(databasePath);
+            }
+        }
 
-            using (var connection = new SQLiteConnection(connectionString))
+        // 创建游戏记录表
+        private void CreateGameRecordsTable(string databasePath)
+        {
+            using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
             {
                 connection.Open();
 
-                // 查询包含用户名和其他字段
-                string query = "SELECT username, start_time, score, duration, note FROM game_records WHERE username = @username";
+                string createTableQuery = @"
+                    CREATE TABLE IF NOT EXISTS game_records (
+                        username TEXT NOT NULL, 
+                        start_time TEXT NOT NULL, 
+                        score INTEGER, 
+                        duration TEXT, 
+                        note TEXT
+                    );
+                ";
 
-                using (var cmd = new SQLiteCommand(query, connection))
+                using (var command = new SQLiteCommand(createTableQuery, connection))
                 {
-                    cmd.Parameters.AddWithValue("@username", username);
-
-                    SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(cmd);
-                    DataTable dataTable = new DataTable();
-                    dataAdapter.Fill(dataTable);
-
-                    dgv.Rows.Clear(); // 清空现有的行
-
-                    foreach (DataRow row in dataTable.Rows)
-                    {
-                        // 添加行到 DataGridView
-                        dgv.Rows.Add(row["username"], row["start_time"], row["score"], row["duration"], row["note"]);
-                    }
+                    command.ExecuteNonQuery();
                 }
             }
         }
 
-
         // 获取数据库文件路径
         private string GetDatabasePath()
         {
-            return Program.GetDatabasePath();  // 使用 Program 中的 GetDatabasePath 方法
+            // 直接返回数据库文件的路径，确保它在当前目录下的 users 文件夹内
+            return Path.Combine(Directory.GetCurrentDirectory(), "users", "game_records.db");
         }
-
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -98,7 +94,9 @@ namespace UI
 
         private void button3_Click(object sender, EventArgs e)
         {
-
+            // 这里可以实现其他功能，例如刷新数据等
         }
     }
 }
+
+

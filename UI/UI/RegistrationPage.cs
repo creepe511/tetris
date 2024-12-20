@@ -7,7 +7,6 @@ namespace UI
 {
     public partial class RegistrationPage : Form
     {
-
         public RegistrationPage()
         {
             InitializeComponent();
@@ -62,7 +61,7 @@ namespace UI
             try
             {
                 InsertUserIntoDatabase(username, password); // 插入用户信息
-                CreateGameRecordsTable(username);           // 创建游戏记录表
+                CreateGameRecordsTable();                    // 创建共享的游戏记录表
                 MessageBox.Show("注册成功！");
                 LoginPage form3 = new LoginPage();
                 form3.Show();
@@ -129,8 +128,8 @@ namespace UI
             }
         }
 
-        // 创建游戏记录表（每个用户都有自己的游戏记录表）
-        private void CreateGameRecordsTable(string username)
+        // 创建共享的游戏记录表
+        private void CreateGameRecordsTable()
         {
             string connectionString = $"Data Source={GetDatabasePath()};Version=3;";  // 使用 Program.GetDatabasePath 获取路径
 
@@ -140,24 +139,18 @@ namespace UI
 
                 string createTableQuery = @"
                     CREATE TABLE IF NOT EXISTS game_records (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
                         username TEXT NOT NULL, 
                         start_time TEXT, 
                         score INTEGER, 
                         duration TEXT, 
                         note TEXT,
-                        PRIMARY KEY (username)
+                        FOREIGN KEY (username) REFERENCES users (username)
                     );
                 ";
 
                 using (var cmd = new SQLiteCommand(createTableQuery, connection))
                 {
-                    cmd.ExecuteNonQuery();
-                }
-
-                string insertQuery = "INSERT INTO game_records (username) VALUES (@username);";
-                using (var cmd = new SQLiteCommand(insertQuery, connection))
-                {
-                    cmd.Parameters.AddWithValue("@username", username);
                     cmd.ExecuteNonQuery();
                 }
 
@@ -180,6 +173,15 @@ namespace UI
         }
     }
 }
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "D:\\GitHub\\UI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\ui\\ui\\historypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\historypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\ui\\ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|d:\\github\\ui\\ui\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\registrationpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\registrationpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\historypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\historypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
       "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,8 +27,20 @@
       "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\mainmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\registrationpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\registrationpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\historypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\historypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\loginpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|D:\\GitHub\\UI\\ui\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{264F95E5-8DAA-485D-9B97-89FC7859748C}|UI\\UI.csproj|solutionrelative:ui\\game.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 8,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,43 +62,94 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
+              "Title": "HistoryPage.cs",
+              "DocumentMoniker": "D:\\GitHub\\UI\\UI\\HistoryPage.cs",
+              "RelativeDocumentMoniker": "UI\\HistoryPage.cs",
+              "ToolTip": "D:\\GitHub\\UI\\UI\\HistoryPage.cs",
+              "RelativeToolTip": "UI\\HistoryPage.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAAAGQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T07:10:54.617Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Game.cs",
+              "DocumentMoniker": "D:\\GitHub\\UI\\UI\\Game.cs",
+              "RelativeDocumentMoniker": "UI\\Game.cs",
+              "ToolTip": "D:\\GitHub\\UI\\UI\\Game.cs",
+              "RelativeToolTip": "UI\\Game.cs",
+              "ViewState": "AgIAALoAAAAAAAAAAAAkwNcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T05:01:05.527Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Game.cs [\u8BBE\u8BA1]",
+              "DocumentMoniker": "D:\\GitHub\\UI\\UI\\Game.cs",
+              "RelativeDocumentMoniker": "UI\\Game.cs",
+              "ToolTip": "D:\\GitHub\\UI\\UI\\Game.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "UI\\Game.cs [\u8BBE\u8BA1]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-20T05:01:04.263Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LoginPage.cs",
+              "DocumentMoniker": "D:\\GitHub\\UI\\UI\\LoginPage.cs",
+              "RelativeDocumentMoniker": "UI\\LoginPage.cs",
+              "ToolTip": "D:\\GitHub\\UI\\UI\\LoginPage.cs",
+              "RelativeToolTip": "UI\\LoginPage.cs",
+              "ViewState": "AgIAAH8AAAAAAAAAAAAAAAsAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-19T08:56:39.122Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "HistoryPage.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\GitHub\\UI\\UI\\HistoryPage.cs",
               "RelativeDocumentMoniker": "UI\\HistoryPage.cs",
-              "ToolTip": "D:\\GitHub\\UI\\UI\\HistoryPage.cs [\u8BBE\u8BA1]*",
-              "RelativeToolTip": "UI\\HistoryPage.cs [\u8BBE\u8BA1]*",
+              "ToolTip": "D:\\GitHub\\UI\\UI\\HistoryPage.cs [\u8BBE\u8BA1]",
+              "RelativeToolTip": "UI\\HistoryPage.cs [\u8BBE\u8BA1]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-12-19T08:51:58.891Z",
               "EditorCaption": " [\u8BBE\u8BA1]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "RegistrationPage.cs",
               "DocumentMoniker": "D:\\GitHub\\UI\\UI\\RegistrationPage.cs",
               "RelativeDocumentMoniker": "UI\\RegistrationPage.cs",
               "ToolTip": "D:\\GitHub\\UI\\UI\\RegistrationPage.cs",
               "RelativeToolTip": "UI\\RegistrationPage.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIEAAAAAAAAAAAAAALcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-19T01:05:22.033Z"
+              "WhenOpened": "2024-12-19T01:05:22.033Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\GitHub\\UI\\UI\\Program.cs",
               "RelativeDocumentMoniker": "UI\\Program.cs",
               "ToolTip": "D:\\GitHub\\UI\\UI\\Program.cs",
               "RelativeToolTip": "UI\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAApAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAwGUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-18T15:39:59.217Z"
+              "WhenOpened": "2024-12-18T15:39:59.217Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "MainMenu.cs",
               "DocumentMoniker": "D:\\GitHub\\UI\\UI\\MainMenu.cs",
               "RelativeDocumentMoniker": "UI\\MainMenu.cs",
@@ -94,7 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "MainMenu.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\GitHub\\UI\\UI\\MainMenu.cs",
               "RelativeDocumentMoniker": "UI\\MainMenu.cs",
@@ -105,7 +172,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "LoginPage.cs [\u8BBE\u8BA1]",
               "DocumentMoniker": "D:\\GitHub\\UI\\UI\\LoginPage.cs",
               "RelativeDocumentMoniker": "UI\\LoginPage.cs",

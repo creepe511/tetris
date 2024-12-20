@@ -53,28 +53,45 @@ namespace UI
             {
                 connection.Open();
 
-                // 创建表的 SQL 查询语句（如果表不存在则创建）
-                string createTableQuery = @"
-                CREATE TABLE IF NOT EXISTS users (
-                    username TEXT NOT NULL UNIQUE,
-                    password TEXT NOT NULL
-                );
-                ";
-
-                using (var cmd = new SQLiteCommand(createTableQuery, connection))
+                // 检查 users 表是否存在
+                string checkTableQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='users';";
+                using (var cmd = new SQLiteCommand(checkTableQuery, connection))
                 {
-                    cmd.ExecuteNonQuery();
+                    var result = cmd.ExecuteScalar();
+                    if (result == null)
+                    {
+                        // 如果表不存在，则创建表
+                        string createTableQuery = @"
+                        CREATE TABLE IF NOT EXISTS users (
+                            username TEXT NOT NULL UNIQUE,
+                            password TEXT NOT NULL
+                        );
+                        ";
+
+                        using (var createCmd = new SQLiteCommand(createTableQuery, connection))
+                        {
+                            createCmd.ExecuteNonQuery();
+                        }
+                    }
                 }
 
                 // 插入默认用户（如果用户表为空且没有 alice 用户，则插入默认用户）
-                string insertQuery = @"
-                INSERT OR IGNORE INTO users (username, password) 
-                VALUES ('alice', 'password123');
-                ";
-
-                using (var cmd = new SQLiteCommand(insertQuery, connection))
+                string checkUserQuery = "SELECT COUNT(*) FROM users WHERE username = 'alice';";
+                using (var cmd = new SQLiteCommand(checkUserQuery, connection))
                 {
-                    cmd.ExecuteNonQuery();
+                    long userCount = (long)cmd.ExecuteScalar();
+                    if (userCount == 0)
+                    {
+                        string insertQuery = @"
+                        INSERT INTO users (username, password) 
+                        VALUES ('alice', 'password123');
+                        ";
+
+                        using (var insertCmd = new SQLiteCommand(insertQuery, connection))
+                        {
+                            insertCmd.ExecuteNonQuery();
+                        }
+                    }
                 }
 
                 connection.Close();
@@ -82,6 +99,7 @@ namespace UI
         }
     }
 }
+
 
 
 
