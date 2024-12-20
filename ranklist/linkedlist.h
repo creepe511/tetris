@@ -7,10 +7,10 @@
 
 // 定义游戏记录节点结构体
 typedef struct Node {
-    char start_time[30];              // 游戏开始时间
+    char start_time[64];              // 游戏开始时间
     int score;                       // 游戏分数
     int duration;               // 游戏时长（秒）
-    char note[15];                   // 游戏备注
+    char note[128];                   // 游戏备注
     struct Node* next;               // 指向下一个节点的指针
 } Node;
 

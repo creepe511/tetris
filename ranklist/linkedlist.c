@@ -37,7 +37,7 @@ void add_node(Node** head, Node* new_node) {
 
 // 删除指定开始时间的记录
 int delete_node(Node** head, const char* start_time) {
-    Node* current = *head;
+    Node* current = head;
     Node* prev = NULL;
 
     while (current) {
@@ -53,6 +53,7 @@ int delete_node(Node** head, const char* start_time) {
         prev = current;
         current = current->next;
     }
+    
     return 0; // 未找到匹配的记录
 }
 

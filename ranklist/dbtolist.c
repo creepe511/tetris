@@ -79,41 +79,75 @@ Node* read_from_database(sqlite3* db, const char* table_name) {
         return head;
 }    
 
-
-//将链表数据同步到数据库
-void update_database(sqlite3* db, Node* head, const char* table_name) {
+// 将链表节点的数据插入到 SQLite 数据库中
+void insertNodeToDatabase(Node* node, sqlite3* db,const char* table_name) {
+    char *errMsg = 0;
     char sql[512];
-    snprintf(sql, sizeof(sql), "UPDATE `%s` SET 分数=?, 游戏时长=?, 备注=? WHERE 游戏时间=?;",table_name);
-    sqlite3_stmt* stmt;
+ 
+    // 准备 SQL 语句
+    snprintf(sql, sizeof(sql),
+             "INSERT INTO %s (游戏时间, 分数, 游戏时长, 备注) VALUES ('%s', %d, %d, '%s');",table_name,
+             node->start_time, node->score, node->duration, node->note);
+ 
+    // 执行 SQL 语句
+    int rc = sqlite3_exec(db, sql, 0, 0, &errMsg);
+    if (rc != SQLITE_OK) {
+        fprintf(stderr, "SQL error: %s\n", errMsg);
+        sqlite3_free(errMsg);
+    } else {
+        fprintf(stdout, "Data inserted successfully\n");
+    }
+}
+
+//删除节点并同步删除记录
+void del_in_database()
+
+//将链表数据同步到数据库（用于删除和修改备注的操作之后）
+void update_database(sqlite3* db, Node* head, const char* table_name) {
+    char sql_update[512];
+    snprintf(sql_update, sizeof(sql_update),
+             "UPDATE `%s` SET 分数=?, 游戏时长=?, 备注=? WHERE 游戏时间=?;", table_name);
+    sqlite3_stmt* stmt_update;
  
     // 检查 SQL 语句的准备情况
-    if (sqlite3_prepare_v2(db, sql, -1, &stmt, NULL) != SQLITE_OK) {
-        fprintf(stderr, "Failed to prepare statement: %s\n", sqlite3_errmsg(db));
+    if (sqlite3_prepare_v2(db, sql_update, -1, &stmt_update, NULL) != SQLITE_OK) {
+        fprintf(stderr, "Failed to prepare update statement: %s\n", sqlite3_errmsg(db));
         return;
     }
  
     // 遍历链表并更新数据库
     Node* current = head;
     while (current != NULL) {
-        // 绑定参数到 SQL 语句
-        sqlite3_reset(stmt); // 重置语句到其初始状态，以便可以重新绑定参数
-         //绑定顺序不重要，只要索引正确即可
-        sqlite3_bind_text(stmt, 1, current->note ? current->note : NULL, -1, SQLITE_STATIC);
-        sqlite3_bind_int(stmt, 2, current->score);
-        sqlite3_bind_int(stmt, 3, current->duration);
-        sqlite3_bind_text(stmt, 4, current->start_time ? current->start_time : NULL, -1, SQLITE_STATIC);
+        sqlite3_reset(stmt_update); // 重置语句到其初始状态
+        sqlite3_bind_text(stmt_update, 1, current->note ? current->note : "", -1, SQLITE_STATIC);
+        sqlite3_bind_int(stmt_update, 2, current->score);
+        sqlite3_bind_int(stmt_update, 3, current->duration);
+        sqlite3_bind_text(stmt_update, 4, current->start_time ? current->start_time : "", -1, SQLITE_STATIC);
  
         // 执行 SQL 语句
-        if (sqlite3_step(stmt) != SQLITE_DONE) {
+        if (sqlite3_step(stmt_update) != SQLITE_DONE) {
             fprintf(stderr, "Failed to update record: %s\n", sqlite3_errmsg(db));
         }
         current = current->next;
     }
  
-    // 释放 SQL 语句对象
-    sqlite3_finalize(stmt);
+    // 释放更新语句对象
+    sqlite3_finalize(stmt_update);
+ 
+    // 准备 DELETE 语句以删除游戏时间为 NULL 的行
+    char sql_delete[256];
+    snprintf(sql_delete, sizeof(sql_delete), "DELETE FROM `%s` WHERE 游戏时间 IS NULL;", table_name);
+ 
+    // 执行 DELETE 语句
+    char *err_msg = 0;
+    if (sqlite3_exec(db, sql_delete, 0, 0, &err_msg) != SQLITE_OK) {
+        fprintf(stderr, "Failed to execute delete statement: %s\n", err_msg);
+        sqlite3_free(err_msg);
+    } else {
+        printf("Successfully deleted rows with NULL 游戏时间.\n");
+    }
 }
-
+    
 //按顺序查询数据库
 void execute_sort_query(sqlite3* db, const char *sort_by, const char* table_name) {
     char *err_msg = 0;
