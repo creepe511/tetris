@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace UI
 {
@@ -9,7 +12,10 @@ namespace UI
     public partial class HistoryPage : Form
     {
         private string selectedStartTime = string.Empty;
-        private string dbPath = "";  
+        private string updatedRemark = string.Empty;
+        private string currentDirectory = Application.StartupPath;
+        private Process historyProcess;
+        private string dbPath ;  
 
         public HistoryPage()
         {
@@ -17,6 +23,7 @@ namespace UI
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            dbPath = Path.Combine(currentDirectory, "data", "database.db");
         }
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
@@ -85,7 +92,27 @@ namespace UI
 
         private void button3_Click(object sender, EventArgs e)
         {
+            string username = textBox1.Text;
+            if (textBox1.Text == "")
+            {
+                historyProcess = new Process();
+                string historyresetPath = Path.Combine(currentDirectory, "setup", "reset.exe");
+                historyProcess.StartInfo.FileName = historyresetPath;  // 设置可执行文件的路径
+                historyProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                historyProcess.Start();
+                LoadDataFromDatabase();
+                return;
+            }
+            historyProcess = new Process();
+            string historysearchPath = Path.Combine(currentDirectory, "setup", "search.exe");
+            string arguments = $"--username={username}";
+            historyProcess.StartInfo.FileName = historysearchPath;
+            historyProcess.StartInfo.Arguments = arguments;
+            historyProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            historyProcess.Start();
 
+            textBox1.Clear();
+            LoadDataFromDatabase();
         }
 
         private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -93,7 +120,43 @@ namespace UI
             if (e.RowIndex >= 0)
             {
                 // 获取当前选中行的开始时间
-                selectedStartTime = dgv.Rows[e.RowIndex].Cells["StartTime"].Value.ToString();
+                selectedStartTime = dgv.Rows[e.RowIndex].Cells["开始时间"].Value.ToString();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            historyProcess = new Process();
+            string historydeletePath = Path.Combine(currentDirectory, "setup", "delete.exe");
+            string arguments = $"--start_time={selectedStartTime}";
+            historyProcess.StartInfo.FileName = historydeletePath;
+            historyProcess.StartInfo.Arguments = arguments;
+            historyProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+            historyProcess.Start();
+            LoadDataFromDatabase();
+        }
+
+        private void dgv_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == dgv.Columns["备注"].Index)
+            {
+                historyProcess = new Process();
+                // 获取当前行的备注列的修改后值
+                var updatedRemark = dgv.Rows[e.RowIndex].Cells["备注"].Value.ToString();
+
+                // 指定外部程序路径
+                string historymodifyPath = Path.Combine(currentDirectory, "setup", "modify.exe"); 
+
+                // 构建命令行参数，传递开始时间和备注
+                string arguments = $"--start_time={selectedStartTime} --remark={updatedRemark}";
+
+                // 配置启动外部进程的相关信息
+                historyProcess.StartInfo.FileName = historymodifyPath;
+                historyProcess.StartInfo.Arguments = arguments;
+                historyProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
+                // 启动外部程序
+                historyProcess.Start();
+                LoadDataFromDatabase();
             }
         }
     }

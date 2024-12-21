@@ -72,7 +72,7 @@ namespace UI
             }
         }
 
-        // 获取数据库文件路径（统一使用 Program.GetDatabasePath 方法）
+        // 获取数据库文件路径
         private string GetDatabasePath()
         {
             return Program.GetDatabasePath();  // 直接调用 Program 中的 GetDatabasePath 方法

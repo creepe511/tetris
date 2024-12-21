@@ -81,10 +81,8 @@ namespace UI
 
             // 嵌入游戏窗口到 Panel 中
             EmbedGameWindow(gameProcess.MainWindowHandle);
-
-            // 游戏嵌入后，将 panel1 设置为不透明
-            panel1.BackColor = Color.White;  // 设置为不透明颜色，或者其他操作
-            button1.Enabled = true; // 启用按钮
+            panel1.BackColor = Color.White;  
+            button1.Enabled = true; 
         }
 
 
