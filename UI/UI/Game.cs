@@ -24,7 +24,6 @@ namespace UI
         // 窗口加载时的处理
         private void Form4_Load(object sender, EventArgs e)
         {
-            
         }
 
         // 窗口关闭时的处理
@@ -45,8 +44,14 @@ namespace UI
             // 禁用按钮，避免重复点击
             button1.Enabled = false;
 
-            // 设定 SFML 游戏可执行文件的路径
-            string gameExecutablePath = @"D:\C语言成品\Setup3\俄罗斯方块2.exe";  // 修改为你的实际路径
+            // 获取 CurrentUser 的值
+            string currentUser = LoginPage.CurrentUser;
+
+            // 获取当前程序的启动目录
+            string currentDirectory = Application.StartupPath;
+
+            // 构建游戏可执行文件的完整路径
+            string gameExecutablePath = Path.Combine(currentDirectory, "setup", "俄罗斯方块2.exe");
 
             // 结束现有的游戏进程（如果存在）
             if (gameProcess != null && !gameProcess.HasExited)
@@ -55,14 +60,35 @@ namespace UI
                 gameProcess.WaitForExit(); // 等待进程完全退出
             }
 
-            // 启动新的游戏进程
-            await StartGameAsync();
+            // 启动游戏并传递 CurrentUser 作为命令行参数
+            string arguments = $"--user={currentUser}";  // 构造命令行参数
 
-            // 启用按钮
-            button1.Enabled = true;
+            gameProcess = new Process();
+            gameProcess.StartInfo.FileName = gameExecutablePath;
+            gameProcess.StartInfo.Arguments = arguments;  // 添加命令行参数
+            gameProcess.StartInfo.WorkingDirectory = Path.GetDirectoryName(gameExecutablePath); // 设置工作目录为游戏文件夹
+            gameProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden; // 隐藏黑色控制台窗口
+            gameProcess.Start();
+
+            // 等待游戏窗口加载并嵌入到 Panel 控件
+            await Task.Run(() =>
+            {
+                while (gameProcess.MainWindowHandle == IntPtr.Zero)
+                {
+                    Thread.Sleep(100); // 等待游戏窗口句柄
+                }
+            });
+
+            // 嵌入游戏窗口到 Panel 中
+            EmbedGameWindow(gameProcess.MainWindowHandle);
+
+            // 游戏嵌入后，将 panel1 设置为不透明
+            panel1.BackColor = Color.White;  // 设置为不透明颜色，或者其他操作
+            button1.Enabled = true; // 启用按钮
         }
 
-        // 按钮点击时返回 Form1，并结束游戏进程
+
+
         private void button2_Click(object sender, EventArgs e)
         {
             // 结束游戏进程
@@ -78,51 +104,6 @@ namespace UI
             this.Hide();  // 隐藏当前窗体
         }
 
-        // 启动游戏方法（异步）
-        private async Task StartGameAsync()
-        {
-            string gameExecutablePath = @"D:\C语言成品\Setup3\俄罗斯方块2.exe";  // 修改为你的实际路径
-
-            // 确保游戏路径存在
-            if (!File.Exists(gameExecutablePath))
-            {
-                MessageBox.Show("游戏文件未找到，请检查路径！");
-                return;
-            }
-
-            // 启动 SFML 游戏进程
-            gameProcess = new Process();
-            gameProcess.StartInfo.FileName = gameExecutablePath;
-
-            // 设置工作目录为游戏文件所在的目录
-            gameProcess.StartInfo.WorkingDirectory = Path.GetDirectoryName(gameExecutablePath);
-
-            // 启动时隐藏游戏窗口（避免跳出独立窗口）
-            gameProcess.StartInfo.WindowStyle = ProcessWindowStyle.Hidden;
-            gameProcess.EnableRaisingEvents = true;
-
-            // 事件捕捉：当游戏进程退出时
-            gameProcess.Exited += GameProcess_Exited;
-
-            // 启动游戏进程
-            gameProcess.Start();
-
-            // 等待游戏窗口加载（异步）
-            await Task.Run(() =>
-            {
-                while (gameProcess.MainWindowHandle == IntPtr.Zero)
-                {
-                    Thread.Sleep(100); // 每次循环稍等，确保获取到游戏窗口句柄
-                }
-            });
-
-            // 获取 SFML 游戏的窗口句柄并嵌入到 Panel 中
-            EmbedGameWindow(gameProcess.MainWindowHandle);
-
-            // 游戏嵌入后，将 panel1 设置为不透明
-            panel1.BackColor = Color.White;  // 你可以选择你需要的背景色，或者其他操作
-        }
-
         // 游戏进程退出后的事件处理
         private void GameProcess_Exited(object sender, EventArgs e)
         {
@@ -133,7 +114,9 @@ namespace UI
                 button1.Enabled = true;
 
                 // 允许窗口重新响应
-                this.Enabled = true; // 确保窗体可以点击
+                this.Enabled = true; 
+
+
 
                 // 这里可以做一些清理工作，比如恢复窗体UI等
                 panel1.BackColor = Color.Transparent;  // 如果你想在游戏结束后恢复透明效果
@@ -214,6 +197,7 @@ namespace UI
         }
     }
 }
+
 
 
 

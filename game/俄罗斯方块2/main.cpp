@@ -13,6 +13,7 @@
 #define COL 10
 #define SPEED_NORMAL 0.5
 #define SPEED_FAST 0.05
+#define BLOCK_SIZE 36
 
 using namespace sf; //声明命名空间
 
@@ -63,14 +64,13 @@ struct point
 	int x;
 	int y;
 };
-struct point curBlock[4],nextBlock[4], backBlock[4];
+struct point curBlock[4], nextBlock[4], backBlock[4];
 
 //生成方块
 void newBlocks()
 {
-	//获取一个随机值【0，6】
 	blockIndex = nextblockIndex;
-	nextblockIndex = rand() % 7;
+	nextblockIndex = rand() % 7; //获取一个随机值【0，6】
 	for (int i = 0;i < 4;i++)
 	{
 		//把俄罗斯方块转换成坐标表示
@@ -106,8 +106,8 @@ void drawBlocks(Sprite *spriteBlock, RenderWindow *window)
 			{
 				//画方块
 				//需要使用Sprite表示完整的方块图片
-				spriteBlock->setTextureRect(IntRect((table[i][j] - 1) * 36, 0, 36, 36)); //设置绘制区域(截取区域)
-				spriteBlock->setPosition(j * 36, i * 36); //绘制位置
+				spriteBlock->setTextureRect(IntRect((table[i][j] - 1) * BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE)); //设置绘制区域(截取区域)
+				spriteBlock->setPosition(j * BLOCK_SIZE, i * BLOCK_SIZE); //绘制位置
 				spriteBlock->move(23, -128); //设置偏移量
 				window->draw(*spriteBlock); //绘制
 			}
@@ -116,8 +116,8 @@ void drawBlocks(Sprite *spriteBlock, RenderWindow *window)
 	//2.正在降落的方块
 	for (int i = 0;i < 4;i++)
 	{
-		spriteBlock->setTextureRect(IntRect(blockIndex * 36, 0, 36, 36)); //设置绘制区域(截取区域)
-		spriteBlock->setPosition(curBlock[i].x * 36, curBlock[i].y * 36); //绘制位置
+		spriteBlock->setTextureRect(IntRect(blockIndex * BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE)); //设置绘制区域(截取区域)
+		spriteBlock->setPosition(curBlock[i].x * BLOCK_SIZE, curBlock[i].y * BLOCK_SIZE); //绘制位置
 		spriteBlock->move(23, -128); //设置偏移量
 		window->draw(*spriteBlock); //绘制
 	}
@@ -125,18 +125,18 @@ void drawBlocks(Sprite *spriteBlock, RenderWindow *window)
 	//3.即将落下的方块
 	for (int i = 0;i < 4;i++)
 	{
-		spriteBlock->setTextureRect(IntRect(nextblockIndex * 36, 0, 36, 36)); //设置绘制区域(截取区域)
+		spriteBlock->setTextureRect(IntRect(nextblockIndex * BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE)); //设置绘制区域(截取区域)
 		if (nextblockIndex == 0)
 		{
-			spriteBlock->setPosition(nextBlock[i].x * 36 + 300, nextBlock[i].y * 36 + 60); //绘制位置
+			spriteBlock->setPosition(nextBlock[i].x * BLOCK_SIZE + 300, nextBlock[i].y * BLOCK_SIZE + 60); //绘制位置
 		}
 		else if (nextblockIndex == 6)
 		{
-			spriteBlock->setPosition(nextBlock[i].x * 36 + 320, nextBlock[i].y * 36 + 65); //绘制位置
+			spriteBlock->setPosition(nextBlock[i].x * BLOCK_SIZE + 320, nextBlock[i].y * BLOCK_SIZE + 65); //绘制位置
 		}
 		else
 		{
-			spriteBlock->setPosition(nextBlock[i].x * 36 + 320, nextBlock[i].y * 36 + 80); //绘制位置
+			spriteBlock->setPosition(nextBlock[i].x * BLOCK_SIZE + 320, nextBlock[i].y * BLOCK_SIZE + 80); //绘制位置
 		}
 		window->draw(*spriteBlock); //绘制
 	}
@@ -373,8 +373,18 @@ bool isGameOver()
 	return false;
 }
 
-int main(void)
+int main(int argc, char* argv[])
 {
+	std::string currentUser;
+
+	// 解析命令行参数
+	for (int i = 1; i < argc; ++i) {
+		if (std::string(argv[i]).find("--user=") == 0) {
+			currentUser = std::string(argv[i]).substr(7);  // 获取 `--user=...` 后的字符串
+		}
+	}
+
+	std::cout << "Current user: " << currentUser << std::endl;
 	//记录游戏开始时刻
 	// 获取当前时间（系统时间，假设为UTC时间）
 	auto now = std::chrono::system_clock::now();
@@ -394,14 +404,14 @@ int main(void)
 
 	// 输出北京时间
 	std::cout << std::put_time(&now_tm, "%Y-%m-%d %H:%M:%S") << std::endl;
-
+	
 
 	srand((unsigned)time(NULL));//生成随机种子
 
 	//游戏界面绘制
 	//1.创建游戏窗口
 	RenderWindow window(
-		VideoMode(576,746),//窗口模式:音频
+		VideoMode(576,746), //窗口模式:音频
 		"TETRIS"); //窗口标题
 
 	//2.添加游戏背景
@@ -499,13 +509,15 @@ int main(void)
 		scoreText.setString("Score: " + std::to_string(score));
 		
 		//更新时间
-		timeText.setString("Time: " + std::to_string(int(timer2))+"s");
+		timeText.setString("Time: " + std::to_string((int)timer2)+"s");
 
 		//游戏结束处理
 		if (isGameOver())
 		{
 			paused = true;
 			music.stop(); // 游戏结束时停止音乐
+			printf("Final Score: %d\n", score);
+			printf("Game Time: %ds\n", (int)timer2);
 
 			SoundBuffer gameover;
 			if (!gameover.loadFromFile("music/gameover.wav"))
@@ -538,6 +550,7 @@ int main(void)
 			// 游戏结束界面渲染
 			while (sound3.getStatus() == Sound::Playing) // 音效播放时保持循环
 			{
+				keyEvent(&window);
 				window.clear();
 				window.draw(spriteBg);
 				drawBlocks(&spriteBlock, &window);
@@ -547,6 +560,8 @@ int main(void)
 				window.display();
 			}
 			sound3.stop();
+			window.close();
+
 			break; // 跳过本次循环，防止其他操作更新
 		}
 

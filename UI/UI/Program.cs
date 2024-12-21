@@ -15,14 +15,13 @@ namespace UI
         {
             // 初始化数据库（如果没有则创建）
             InitializeDatabase();
-
             // 启动应用程序的界面
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new LoginPage());
         }
 
-        // 获取数据库文件路径（在当前应用程序目录的 users 文件夹中创建数据库）
+        // 获取数据库文件路径
         public static string GetDatabasePath()  // 修改为 public
         {
             // 获取应用程序的当前目录
@@ -75,7 +74,7 @@ namespace UI
                     }
                 }
 
-                // 插入默认用户（如果用户表为空且没有 alice 用户，则插入默认用户）
+                // 插入默认用户
                 string checkUserQuery = "SELECT COUNT(*) FROM users WHERE username = 'alice';";
                 using (var cmd = new SQLiteCommand(checkUserQuery, connection))
                 {
@@ -93,7 +92,6 @@ namespace UI
                         }
                     }
                 }
-
                 connection.Close();
             }
         }

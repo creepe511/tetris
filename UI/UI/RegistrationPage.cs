@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SQLite;
-using System.IO;
 using System.Windows.Forms;
 
 namespace UI
@@ -19,7 +18,7 @@ namespace UI
 
         private void RegistrationPage_Load(object sender, EventArgs e)
         {
-            // 这里不需要做初始化操作，用户表已经创建好
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -61,7 +60,6 @@ namespace UI
             try
             {
                 InsertUserIntoDatabase(username, password); // 插入用户信息
-                CreateGameRecordsTable();                    // 创建共享的游戏记录表
                 MessageBox.Show("注册成功！");
                 LoginPage form3 = new LoginPage();
                 form3.Show();
@@ -128,36 +126,6 @@ namespace UI
             }
         }
 
-        // 创建共享的游戏记录表
-        private void CreateGameRecordsTable()
-        {
-            string connectionString = $"Data Source={GetDatabasePath()};Version=3;";  // 使用 Program.GetDatabasePath 获取路径
-
-            using (var connection = new SQLiteConnection(connectionString))
-            {
-                connection.Open();
-
-                string createTableQuery = @"
-                    CREATE TABLE IF NOT EXISTS game_records (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        username TEXT NOT NULL, 
-                        start_time TEXT, 
-                        score INTEGER, 
-                        duration TEXT, 
-                        note TEXT,
-                        FOREIGN KEY (username) REFERENCES users (username)
-                    );
-                ";
-
-                using (var cmd = new SQLiteCommand(createTableQuery, connection))
-                {
-                    cmd.ExecuteNonQuery();
-                }
-
-                connection.Close();
-            }
-        }
-
         // 跳转到登录页面
         private void label4_Click(object sender, EventArgs e)
         {
@@ -173,6 +141,7 @@ namespace UI
         }
     }
 }
+
 
 
 

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
-using System.IO;
 using System.Windows.Forms;
 
 namespace UI
 {
+   
     public partial class HistoryPage : Form
     {
+        private string selectedStartTime = string.Empty;
+        private string dbPath = "";  
+
         public HistoryPage()
         {
             InitializeComponent();
@@ -21,67 +24,55 @@ namespace UI
             Application.Exit();
         }
 
-        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // 可以实现点击事件的其他逻辑，如果需要
-        }
-
         private void Form2_Load(object sender, EventArgs e)
         {
             dgv.AllowUserToAddRows = false;
             dgv.Rows.Clear();
-            CreateDatabase(); // 创建数据库并加载数据
+            LoadDataFromDatabase();
         }
 
-        // 创建数据库和游戏记录表
-        private void CreateDatabase()
+        // 加载SQLite数据库数据到DataGridView
+        private void LoadDataFromDatabase()
         {
-            // 获取数据库路径，确保它位于当前目录下的 users 文件夹内
-            string databasePath = Path.Combine(Directory.GetCurrentDirectory(), "users", "game_records.db");
-
-            // 检查文件夹是否存在，如果不存在则创建
-            string directoryPath = Path.GetDirectoryName(databasePath);
-            if (!Directory.Exists(directoryPath))
+            // 如果dbPath为空，直接返回
+            if (string.IsNullOrEmpty(dbPath))
             {
-                Directory.CreateDirectory(directoryPath);
+                return;
             }
 
-            // 如果数据库文件不存在，则创建数据库和表
-            if (!File.Exists(databasePath))
+            // 连接到SQLite数据库
+            string connectionString = $"Data Source={dbPath};Version=3;";
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
             {
-                CreateGameRecordsTable(databasePath);
-            }
-        }
-
-        // 创建游戏记录表
-        private void CreateGameRecordsTable(string databasePath)
-        {
-            using (var connection = new SQLiteConnection($"Data Source={databasePath};Version=3;"))
-            {
-                connection.Open();
-
-                string createTableQuery = @"
-                    CREATE TABLE IF NOT EXISTS game_records (
-                        username TEXT NOT NULL, 
-                        start_time TEXT NOT NULL, 
-                        score INTEGER, 
-                        duration TEXT, 
-                        note TEXT
-                    );
-                ";
-
-                using (var command = new SQLiteCommand(createTableQuery, connection))
+                try
                 {
-                    command.ExecuteNonQuery();
+                    connection.Open();
+
+                    // 检查指定的表是否存在
+                    string checkTableQuery = "SELECT name FROM sqlite_master WHERE type='table' AND name='YourTableName';";
+                    SQLiteCommand checkTableCmd = new SQLiteCommand(checkTableQuery, connection);
+                    var result = checkTableCmd.ExecuteScalar();
+
+                    // 如果表不存在，直接返回
+                    if (result == null)
+                    {
+                        return;
+                    }
+
+                    // 如果表存在，从表中获取数据
+                    string query = "SELECT * FROM YourTableName;";
+                    SQLiteDataAdapter dataAdapter = new SQLiteDataAdapter(query, connection);
+                    DataTable dataTable = new DataTable();
+                    dataAdapter.Fill(dataTable);
+
+                    // 将数据绑定到DataGridView
+                    dgv.DataSource = dataTable;
+                }
+                catch (Exception)
+                {
+                    return;
                 }
             }
-        }
-
-        // 获取数据库文件路径
-        private string GetDatabasePath()
-        {
-            // 直接返回数据库文件的路径，确保它在当前目录下的 users 文件夹内
-            return Path.Combine(Directory.GetCurrentDirectory(), "users", "game_records.db");
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -94,9 +85,20 @@ namespace UI
 
         private void button3_Click(object sender, EventArgs e)
         {
-            // 这里可以实现其他功能，例如刷新数据等
+
+        }
+
+        private void dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                // 获取当前选中行的开始时间
+                selectedStartTime = dgv.Rows[e.RowIndex].Cells["StartTime"].Value.ToString();
+            }
         }
     }
 }
+
+
 
 
