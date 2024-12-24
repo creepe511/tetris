@@ -1,17 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-#include "ranklist.h"
-#include "sqlite3.h"
-
-#define MAX_LINE_LENGTH 256
-#define MAX_STRING_VALUE 256
+#include "ranklist.c"
 
 int main() {
     FILE *file;
-    char line[MAX_LINE_LENGTH];
+    char line[128];
     int score, duration;
-    char start_time[MAX_STRING_VALUE], user_name[MAX_STRING_VALUE] = "";
+    char start_time[64], user_name[64] = "";
  
     // 打开文件以读取
     file = fopen("data.txt", "r");
@@ -56,12 +52,6 @@ int main() {
     // 关闭文件
     fclose(file);
 
-    // 输出读取到的内容（可选，用于验证）
-    printf("score: %d\n", score);
-    printf("duration: %d\n", duration);
-    printf("start_time: %s\n", start_time);
-    printf("user_name: %s\n", user_name); // 如果user_name是空的，这里将输出一个空字符串
- 
     // 清空文件（这里选择删除并重新创建文件的方式）
     remove("data.txt");
     file = fopen("data.txt", "w");
@@ -71,20 +61,31 @@ int main() {
         perror("无法重新创建文件");
         return EXIT_FAILURE;
     }
+    //创建新节点并且将其按score大小插入链表
+    Node* head = read_list_from_file("history.txt");
+    Node* new_node = create_node(start_time,score,duration,user_name);
+    Node* current = head;
+    Node* previous = NULL;
+ 
+    // 遍历链表找到第一个score小于新节点score的位置（或链表末尾）
+    while (current != NULL && current->score >= score) {
+        previous = current;
+        current = current->next;
+    }
+ 
+    // 插入新节点
+    new_node->next = current;
+    if (previous == NULL) {
+        // 如果链表为空或新节点应成为新的头节点
+        head = new_node;
+    } else {
+        // 否则，将新节点插入到previous和current之间
+        previous->next = new_node;
+    }
 
-    
-    
-    Node* head;
-    sqlite3* grDB = open_database();
-    Node* new_node = create_node(start_time,score, duration, "");
-    add_node(&head,new_node);
-    insertNodeToDatabase(new_node,grDB,user_name);
-    update_database(grDB,head);
-    sqlite3_close(grDB);
-    free_all_nodes(&head);
-      
-
-    return EXIT_SUCCESS;
-
-    
+    //写入文件
+    write_list_to_file(head,"history.txt");
 }
+    
+    
+    

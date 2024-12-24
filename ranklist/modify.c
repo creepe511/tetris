@@ -1,20 +1,45 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "ranklist.h"
-#include "sqlite3.h"
+#include <string.h>
+#include "ranklist.c"
 
-int main(int argc, char *argv[]) {
-    if (argc != 3) {
-        fprintf(stderr, "Usage: %s <start_time> <new_note>\n", argv[0]);
+int main(){
+    FILE *file;
+    char line[64];
+    char user_name[64];
+    char *pos;
+ 
+    // 打开文件
+    file = fopen("temp.txt", "r");
+    if (file == NULL) {
+        perror("无法打开文件");
         return EXIT_FAILURE;
     }
-    Node* head;
-    sqlite3* grDB = open_database();
-    head = read_from_database(grDB);
-    edit_note(head, argv[1], argv[2]);//argc[1]为游戏时间，argc[2]为新备注
-    update_database(grDB,head);
-    sqlite3_close(grDB);
-    free_all_nodes(&head);
+ 
+    // 读取文件中的一行
+    if (fgets(line, sizeof(line), file) == NULL) {
+        perror("无法读取文件内容");
+        fclose(file);
+        return EXIT_FAILURE;
+    }
+ 
+    // 读取文件中的一行（也就是user_name）
+    if (fgets(user_name, sizeof(user_name), file) == NULL) {
+        perror("无法读取文件内容");
+        fclose(file);
+        return EXIT_FAILURE;
+    }
+ 
+    // 移除换行符（如果存在）
+    user_name[strcspn(user_name, "\n")] = '\0';
+ 
+    // 关闭文件
+    fclose(file);
 
-    return EXIT_SUCCESS;
+    Node* head = read_list_from_file("history.txt");
+    Node *current = head;
+    while (current != NULL) {
+        Node* target = find_node(head,user_name);
+    }
+    
 }
